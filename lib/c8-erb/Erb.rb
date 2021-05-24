@@ -1,24 +1,21 @@
 autoload :ERB, 'erb'
 
 module C8
+  module Detail
+    def self.empty_binding
+      binding
+    end
+  end
+
   def erb variables, data, trim_mode: '-'
-    cls = Class.new {
-      def initialize **opts
-        opts.each { |key, value|
-          instance_variable_set(:"@#{key}", value)
-        }
-      end
+    b = C8::Detail.empty_binding
 
-      def generate data, trim_mode
-        b = binding
-
-        erb = ERB.new(data, nil, trim_mode)
-        erb.result b
-      end
+    variables.each { |key, value|
+      b.local_variable_set(key, value)
     }
 
-    o = cls.new(**variables)
-    o.generate(data, trim_mode)
+    erb = ERB.new(data, nil, trim_mode)
+    erb.result b
   end
 
   module_function :erb
