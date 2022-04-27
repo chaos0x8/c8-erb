@@ -1,7 +1,7 @@
 Gem::Specification.new { |s|
   s.name = 'c8-erb'
-  s.version = '0.1.1'
-  s.date = '2021-06-01'
+  s.version = '1.0.0'
+  s.date = '2022-04-27'
   s.summary = "#{s.name} library"
   s.description = 'Small helper for erb templates'
   s.authors = ['chaos0x8']

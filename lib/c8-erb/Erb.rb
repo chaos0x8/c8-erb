@@ -7,17 +7,14 @@ module C8
     end
   end
 
-  def erb variables, data, trim_mode: '-'
+  def self.erb(variables, &block)
     b = C8::Detail.empty_binding
 
-    variables.each { |key, value|
+    variables.each do |key, value|
       b.local_variable_set(key, value)
-    }
+    end
 
-    erb = ERB.new(data, nil, trim_mode)
+    erb = ERB.new(block.call, trim_mode: '-')
     erb.result b
   end
-
-  module_function :erb
 end
-
